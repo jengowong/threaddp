@@ -9,16 +9,17 @@ import java.util.concurrent.FutureTask;
 public class DaHuoGuo {
 
     public static void main(String[] args) throws Exception {
-        FutureTask<String> futureTask = new FutureTask<>(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                System.out.println(Thread.currentThread().getName() + ":" + "开始烧开水...");
-                // 模拟烧开水耗时
-                Thread.sleep(2000);
-                System.out.println(Thread.currentThread().getName() + ":" + "开水已经烧好了...");
-                return "开水";
-            }
-        });
+        FutureTask<String> futureTask = new FutureTask<>(
+                new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        System.out.println(Thread.currentThread().getName() + ":" + "开始烧开水...");
+                        // 模拟烧开水耗时
+                        Thread.sleep(2000);
+                        System.out.println(Thread.currentThread().getName() + ":" + "开水已经烧好了...");
+                        return "开水";
+                    }
+                });
 
         Thread thread = new Thread(futureTask);
         thread.start();
