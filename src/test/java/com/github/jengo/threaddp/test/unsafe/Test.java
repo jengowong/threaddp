@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
  * 1.内存操作：主要包含"堆外内存"的分配、拷贝、释放、给定地址值操作等方法，典型应用 DirectByteBuffer。
  * 2.CAS：Unsafe提供的CAS方法（如compareAndSwapXXX）底层实现即为CPU指令cmpxchg。
  * 3.Class相关：主要提供Class和它的静态字段的操作相关方法，包含静态字段内存定位、定义类、定义匿名类、检验&确保初始化等。
- * 4.对象操作
+ * 4.对象操作：主要包含对象成员属性相关操作及非常规的对象实例化方式等相关方法。
  * 5.线程调度：包括线程挂起、恢复、锁机制等方法。典型应用，Java锁和同步器框架的核心类AbstractQueuedSynchronizer，就是通过调用LockSupport.park()和LockSupport.unpark()实现线程的阻塞和唤醒的，而LockSupport的park、unpark方法实际是调用Unsafe的park、unpark方式来实现。
  * 6.系统信息获取：包含两个获取系统相关信息的方法。
  * 7.内存屏障
@@ -58,6 +58,7 @@ public class Test {
         try {
             UNSAFE = reflectGetUnsafe();
             Class<?> k = Test.class;
+            //对象操作
             aOffset = UNSAFE.objectFieldOffset(k.getDeclaredField("a"));
             bOffset = UNSAFE.objectFieldOffset(k.getDeclaredField("b"));
             cOffset = UNSAFE.objectFieldOffset(k.getDeclaredField("c"));
